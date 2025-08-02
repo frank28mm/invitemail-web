@@ -133,6 +133,17 @@ class EnvelopeInteraction {
                 }, 1000);
             }
         });
+        this.skipButton = document.getElementById('skip-animation');
+        this.isTyping = false;
+        this.skipAnimation = false;
+        
+        // 添加快进按钮事件监听器
+        if (this.skipButton) {
+            this.skipButton.addEventListener('click', () => {
+                this.skipAnimation = true;
+                this.skipButton.style.display = 'none'; // 点击后隐藏按钮
+            });
+        }
     }
 
     clearAllText() {
@@ -159,6 +170,16 @@ class EnvelopeInteraction {
             setTimeout(() => {
                 this.passwordModal.classList.add('show');
             }, 10);
+            
+            // 等待CSS动画完成后再设置焦点
+            setTimeout(() => {
+                const passwordInput = document.getElementById('password-input');
+                if (passwordInput) {
+                    passwordInput.focus();
+                    // 确保光标可见
+                    passwordInput.click();
+                }
+            }, 350); // 增加延迟时间，确保动画完成
         }
     }
 
@@ -200,13 +221,12 @@ class EnvelopeInteraction {
         // 显示信件内容
         setTimeout(() => {
             this.letter.style.display = 'block';
-            this.letter.style.opacity = '1';
+            this.autoScrollToElement(this.letter);
             
-            // 清空所有文字内容
-            this.clearAllText();
-            
-            // 更新时间戳
-            this.updateTimestamp();
+            // 显示快进按钮
+            if (this.skipButton) {
+                this.skipButton.classList.add('visible');
+            }
             
             // 开始打字机效果
             this.typewriterEffect();
@@ -235,6 +255,31 @@ class EnvelopeInteraction {
     }
 
     typeSequentially(elements, index) {
+        // 检查是否需要跳过动画
+        if (this.skipAnimation) {
+            // 立即显示所有文本
+            elements.forEach(el => {
+                const element = document.getElementById(el.id);
+                if (element) {
+                    element.innerHTML = el.text;
+                    element.style.opacity = '1';
+                }
+            });
+            this.isTyping = false;
+            if (this.skipButton) {
+                this.skipButton.classList.remove('visible');
+            }
+            // 显示按钮
+            setTimeout(() => {
+                const actionButton = document.getElementById('action-button');
+                if (actionButton) {
+                    actionButton.style.display = 'block';
+                    this.autoScrollToElement(actionButton);
+                }
+            }, 500);
+            return;
+        }
+        
         if (index >= elements.length) {
             // 所有文字打完后显示按钮并自动滚动
             setTimeout(() => {
@@ -277,9 +322,17 @@ class EnvelopeInteraction {
     
     typeTextSequential(element, text, speed, callback) {
         let i = 0;
-        element.classList.add('typing-cursor'); // 添加光标
-        
-        const timer = setInterval(() => {
+        element.innerHTML = '';
+        element.style.opacity = '1';
+        const typingInterval = setInterval(() => {
+            // 检查是否需要跳过
+            if (this.skipAnimation) {
+                clearInterval(typingInterval);
+                element.innerHTML = text;
+                if (callback) callback();
+                return;
+            }
+            
             if (i < text.length) {
                 element.textContent += text.charAt(i);
                 
@@ -290,9 +343,8 @@ class EnvelopeInteraction {
                 this.playMechanicalKeySound();
                 i++;
             } else {
-                element.classList.remove('typing-cursor'); // 移除光标
-                clearInterval(timer);
-                if (callback) callback(); // 执行回调
+                clearInterval(typingInterval);
+                if (callback) callback();
             }
         }, speed);
     }
@@ -415,13 +467,15 @@ class EnvelopeInteraction {
         
         // 添加副标题
         const subtitle = document.createElement('p');
-        subtitle.textContent = '维可松 AI Coding 智造营';
+        subtitle.textContent = '维可松 AI Coding 先锋智造营';
         subtitle.style.cssText = `
             color: #00cccc;
-            font-family: 'Courier New', monospace;
+            font-family: 'Orbitron', 'Courier New', monospace;
             font-size: 1.2rem;
+            font-weight: 700;
             margin: 20px 0 0 0;
             opacity: 0.8;
+            text-shadow: 0 0 8px rgba(0, 204, 204, 0.6);
         `;
         
         // 组装元素

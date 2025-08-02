@@ -109,6 +109,18 @@ body {
     opacity: 0.8;
 }
 
+/* 更新 p 标签的字体样式 */
+.letter-content p {
+    font-family: 'Courier Prime', monospace; /* 或者 'Orbitron' */
+    font-size: 1.1rem; /* 可按需调整 */
+    line-height: 1.8;
+    margin-bottom: 20px;
+    color: #cceeee;
+    text-shadow: 0 0 3px rgba(0, 255, 255, 0.5);
+    font-weight: 700; /* 增加字重，700是粗体 */
+}
+
+
 /* 信封容器 */
 .envelope-container {
     position: relative;
@@ -525,4 +537,33 @@ body {
         width: 600px;
         height: 400px;
     }
+}
+
+.skip-button {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: #0d2c0d;
+    color: #00ff00;
+    border: 1px solid #00ff00;
+    padding: 8px 15px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0;
+    pointer-events: none;
+    border-radius: 3px;
+    z-index: 100;
+}
+
+.skip-button.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.skip-button:hover {
+    background: #00ff00;
+    color: #000;
+    box-shadow: 0 0 15px #00ff00;
 }
