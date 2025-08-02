@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix Invitation - 解码你的未来</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 矩阵代码雨背景 -->
+    <div class="matrix-bg">
+        <canvas id="matrix-canvas"></canvas>
+    </div>
+    
+    <!-- 主要内容区域 -->
+    <div class="main-container">
+        <!-- 标题区域 -->
+        <div class="title-section">
+            <h1 class="glitch-text">CLASSIFIED INVITATION</h1>
+            <p class="subtitle">ACCESS LEVEL: STUDENT</p>
+        </div>
+        
+        <!-- 信封容器 -->
+        <div class="envelope-container">
+            <div class="envelope" id="envelope">
+                <!-- 信封主体 -->
+                <div class="envelope-body">
+                    <!-- 全息扫描线效果 -->
+                    <div class="scan-line"></div>
+                    
+                    <!-- 信封封口 -->
+                    <div class="envelope-flap"></div>
+                    
+                    <!-- 安全锁图标（带脉冲效果） -->
+                    <div class="security-lock" id="security-lock">
+                        <div class="pulse-ring"></div>
+                        <div class="lock-icon">🔒</div>
+                        <div class="lock-text">ENCRYPTED</div>
+                        <div class="hint-text">CLICK TO DECRYPT</div>
+                    </div>
+                </div>
+                
+                <!-- 信件内容（初始隐藏） -->
+                <div class="letter-content" id="letter">
+                    <div class="letter-header">
+                        <div class="access-granted">ACCESS GRANTED</div>
+                        <div class="timestamp">TIMESTAMP: 2024.01.15</div>
+                    </div>
+                    
+                    <div class="letter-body">
+                        <h2 id="letter-title"></h2>
+                        <p id="letter-p1"></p>
+                        <p id="letter-p2"></p>
+                        <p id="letter-p3"></p>
+                        <p id="letter-p4"></p>
+                        <p id="letter-p5"></p>
+                        <p id="letter-p6"></p>
+                        <p id="letter-p7"></p>
+                        <p id="letter-p8"></p>
+                        <p id="letter-p9"></p>
+                        <p id="letter-p10"></p>
+                        <p id="letter-p11"></p>
+                        <p id="letter-p12"></p>
+                        
+                        <div class="action-button" id="action-button" style="display: none;">
+                            <button class="matrix-btn">YES, I'M READY.</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 底部状态栏 -->
+        <div class="status-bar">
+            <div class="status-item">STATUS: WAITING FOR INPUT</div>
+            <div class="status-item">SECURITY: LEVEL 5</div>
+        </div>
+    </div>
+    
+    <!-- 密码输入模态框 -->
+    <!-- 密码输入模态框 -->
+    <div class="password-modal" id="password-modal">
+        <div class="modal-content">
+            <h3>SECURITY VERIFICATION</h3>
+            <p>Enter Access Code:</p>
+            <input type="password" id="password-input" maxlength="4" placeholder="****">
+            <div class="modal-buttons">
+                <button id="confirm-password">DECRYPT</button>
+                <button id="cancel-password">CANCEL</button>
+            </div>
+            <div class="error-message" id="error-message"></div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
